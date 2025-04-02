@@ -44,8 +44,5 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# ChromaDB
-chroma_data/
-
 # FlutterFlow (if you have any FlutterFlow specific files)
 .flutterflow/ 

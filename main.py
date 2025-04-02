@@ -30,8 +30,8 @@ if not openai_api_key:
 openai_client = OpenAI(api_key=openai_api_key)
 
 # Initialize ChromaDB
-# Using a persistent directory to store data
-chroma_client = chromadb.PersistentClient(path="./chroma_data")
+# Using a persistent directory outside of the git-ignored 'chroma_data' folder
+chroma_client = chromadb.PersistentClient(path="./rag_data")
 
 # Use a pre-built embedding function from sentence-transformers
 # Make sure the model is downloaded/available
@@ -392,11 +392,13 @@ if __name__ == "__main__":
     print("Access endpoints at http://127.0.0.1:8000")
     print("API docs available at http://127.0.0.1:8000/docs")
     print("Make sure to create a '.env' file with your 'OPENAI_API_KEY'.")
-    print("Ensure ChromaDB data directory './chroma_data' exists or can be created.")
+    print("Ensure ChromaDB data directory './rag_data' exists or can be created.")
     print("---------------------------------------")
-    # Ensure chroma_data directory exists
-    if not os.path.exists("./chroma_data"):
-        os.makedirs("./chroma_data")
-        logging.info("Created './chroma_data' directory for persistent vector storage.")
+    # Ensure rag_data directory exists
+    if not os.path.exists("./rag_data"):
+        os.makedirs("./rag_data")
+        logging.info("Created './rag_data' directory for persistent vector storage.")
 
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    # Use the PORT environment variable provided by Render, or default to 8000
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
