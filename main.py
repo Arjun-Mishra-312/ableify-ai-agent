@@ -399,6 +399,6 @@ if __name__ == "__main__":
         os.makedirs("./rag_data")
         logging.info("Created './rag_data' directory for persistent vector storage.")
 
-    # Use the PORT environment variable provided by Render, or default to 8000
-    port = int(os.getenv("PORT", 8000))
+    # Use the PORT environment variable provided by Render, or default to 10000
+    port = int(os.getenv("PORT", 10000))
     uvicorn.run(app, host="0.0.0.0", port=port)
